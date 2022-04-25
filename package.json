@@ -10,15 +10,17 @@
     "@typescript-eslint/parser": "^5.21.0",
     "eslint": "^8.14.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",
-    "jest": "^28.0.0",
+    "jest": "27.5.1",
+    "jest-mock-extended": "^2.0.5",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3"
   },
   "scripts": {
     "test": "jest --passWithNoTests --no-cache --runInBand",
     "test:watch": "npm run test -- --watch",
-    "test:cov": "npm run test --coverage",
+    "test:cov": "npm run test -- --coverage",
     "test:staged": "npm run test -- --findRelatedTests",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix"
