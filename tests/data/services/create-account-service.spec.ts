@@ -9,8 +9,8 @@ describe('CreateAccountService', () => {
   let loadUserAccountRepository: MockProxy<LoadUserAccountRepository>;
   let saveUserAccountRepository: MockProxy<SaveUserAccountRepository>;
   let hasher: MockProxy<Hasher>;
-  let saveAccountMock: Account;
-  let accountData: Account;
+  let resultAccountMock: SaveUserAccountRepository.Result;
+  let accountData: Omit<Account, 'id'>;
 
   let sut: CreateAccountService;
   beforeAll(() => {
@@ -18,7 +18,7 @@ describe('CreateAccountService', () => {
     saveUserAccountRepository = mock();
     hasher = mock();
 
-    saveAccountMock = {
+    resultAccountMock = {
       id: 'anyId',
       email: 'any@gmail.com',
       name: 'Any Test',
@@ -35,7 +35,7 @@ describe('CreateAccountService', () => {
 
     loadUserAccountRepository.load.mockResolvedValue(undefined);
 
-    saveUserAccountRepository.createAccount.mockResolvedValue(saveAccountMock);
+    saveUserAccountRepository.createAccount.mockResolvedValue(resultAccountMock);
 
     hasher.hash.mockResolvedValue('anypassword');
   });
@@ -44,31 +44,31 @@ describe('CreateAccountService', () => {
   });
 
   it('should call LoadUserAccountRepository with correct parameters', async () => {
-    await sut.execute(saveAccountMock);
-    expect(loadUserAccountRepository.load).toHaveBeenCalledWith({ email: saveAccountMock.email });
+    await sut.execute(accountData);
+    expect(loadUserAccountRepository.load).toHaveBeenCalledWith({ email: resultAccountMock.email });
     expect(loadUserAccountRepository.load).toHaveBeenCalledTimes(1);
   });
 
   it('should return null with LoadAccountByEmailReposity finds one', async () => {
-    loadUserAccountRepository.load.mockResolvedValueOnce(saveAccountMock);
-    const result = await sut.execute(saveAccountMock);
+    loadUserAccountRepository.load.mockResolvedValueOnce(resultAccountMock);
+    const result = await sut.execute(resultAccountMock);
     expect(result).toBe(null);
   });
 
   it('should call Hasher with correct parameters', async () => {
-    await sut.execute(saveAccountMock);
-    expect(hasher.hash).toHaveBeenCalledWith(saveAccountMock.password);
+    await sut.execute(accountData);
+    expect(hasher.hash).toHaveBeenCalledWith(resultAccountMock.password);
     expect(hasher.hash).toHaveBeenCalledTimes(1);
   });
 
   it('should call SaveUserAccountRepository with correct parameters', async () => {
-    await sut.execute(saveAccountMock);
+    await sut.execute(accountData);
     expect(saveUserAccountRepository.createAccount).toHaveBeenCalledWith(accountData);
     expect(saveUserAccountRepository.createAccount).toHaveBeenCalledTimes(1);
   });
 
   it('should return an account on success', async () => {
     const result = await sut.execute(accountData);
-    expect(result).toBe(saveAccountMock);
+    expect(result).toBe(resultAccountMock);
   });
 });
