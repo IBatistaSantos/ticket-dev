@@ -23,8 +23,6 @@ describe('CreateAccountService', () => {
       email: 'any@gmail.com',
       name: 'Any Test',
       password: 'anypassword',
-      roles: undefined,
-      permissions: undefined,
     };
 
     accountData = {

@@ -10,9 +10,7 @@ export class CreateAccountService implements CreateAccount {
   ) {}
 
   async execute(params: CreateAccount.Params): Promise<CreateAccount.Result> {
-    const {
-      email, name, password, roles, permissions,
-    } = params;
+    const { email, name, password } = params;
 
     const accountAlreadyExists = await this.loadUserAccountRepository.load({ email });
 
@@ -23,8 +21,6 @@ export class CreateAccountService implements CreateAccount {
         name,
         email,
         password: hashedPassword,
-        roles,
-        permissions,
       });
 
       return account;

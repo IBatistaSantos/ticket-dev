@@ -22,8 +22,6 @@ describe('AuthenticationService', () => {
       email: 'any@gmail.com',
       name: 'Any Test',
       password: 'anypassword',
-      roles: undefined,
-      permissions: undefined,
     };
 
     authenticationData = {
