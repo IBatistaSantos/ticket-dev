@@ -9,7 +9,7 @@ export namespace LoadUserAccountRepository {
     email: string
   };
 
-  export type Result = undefined | Account;
+  export type Result = null | Account;
 }
 
 export interface SaveUserAccountRepository {

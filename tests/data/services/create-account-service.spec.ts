@@ -31,7 +31,7 @@ describe('CreateAccountService', () => {
       password: 'anypassword',
     };
 
-    loadUserAccountRepository.load.mockResolvedValue(undefined);
+    loadUserAccountRepository.load.mockResolvedValue(null);
 
     saveUserAccountRepository.createAccount.mockResolvedValue(resultAccountMock);
 

@@ -53,7 +53,7 @@ describe('AuthenticationService', () => {
   });
 
   it('should return null with LoadAccountByEmailReposity returning null', async () => {
-    loadUserAccountRepository.load.mockResolvedValueOnce(undefined);
+    loadUserAccountRepository.load.mockResolvedValueOnce(null);
     const result = await sut.execute(authenticationData);
     expect(result).toBe(null);
   });
