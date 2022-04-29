@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@faker-js/faker": "^6.2.0",
     "@types/jest": "^27.4.1",
     "@types/module-alias": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
